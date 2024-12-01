@@ -25,14 +25,14 @@ export class MercadoPagoPaymentDto {
       qr_code: string;
     };
   };
-  readonly additional_info: Object;
+  readonly additional_info: Record<string, any>;
   readonly external_reference: string;
   readonly transaction_amount: number;
   readonly transaction_amount_refunded: number;
   readonly coupon_amount: number;
   readonly transaction_details: MercadoPagoTransactionDetailsDto;
   readonly installments: number;
-  readonly car: Object;
+  readonly car: Record<string, any>;
 }
 
 export const toDomain = (dto: MercadoPagoPaymentDto): Payment => {

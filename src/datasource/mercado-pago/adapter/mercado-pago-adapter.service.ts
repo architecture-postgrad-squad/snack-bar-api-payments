@@ -59,7 +59,6 @@ export class MercadoPagoAdapter implements MercadoPagoServicePort {
     try {
       return (await this.api.get(`/payments/${id}`)).data;
     } catch (error) {
-      console.log(error);
       throw new InternalServerErrorException({
         description: 'Third party API is out of service',
       });

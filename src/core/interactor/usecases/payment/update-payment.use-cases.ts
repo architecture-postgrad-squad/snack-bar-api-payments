@@ -25,7 +25,6 @@ export class UpdatePaymentUseCase implements UpdatePaymentServicePort {
 
       return paymentRegister;
     } catch (error) {
-      console.error('Error in UpdatePaymentUseCase.execute:', error);
       throw new InternalServerErrorException({
         description: 'Failed to update payment',
         details: error.message,

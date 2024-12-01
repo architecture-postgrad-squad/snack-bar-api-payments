@@ -8,7 +8,7 @@
 
 ### O que é o projeto?
 
-O **Snack Bar API - Payments Service** é o microserviço responsável por gerenciar pagamentos na arquitetura do projeto Snack Bar. Ele utiliza a integração com a API do [Mercado Pago](https://www.mercadopago.com.br/developers/pt/docs) para implementar pagamentos via **PIX QR Code**, além de gerenciar o status de pedidos.
+O **Snack Bar API - Payments Service** é o microserviço responsável por gerenciar pagamentos na arquitetura do projeto Snack Bar. Ele utiliza a integração com a API do [Mercado Pago](https://www.mercadopago.com.br/developers/pt/docs) para implementar pagamentos via **PIX QR Code**, além de gerenciar o status de pedidos. O serviço utiliza o banco de dados **MongoDB**, atendendo ao requisito de utilização de um banco NoSQL para armazenamento das informações.
 
 Este serviço oferece os seguintes endpoints:
 
