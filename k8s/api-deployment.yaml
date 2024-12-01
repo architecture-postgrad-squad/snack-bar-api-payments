@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snack-bar-payments-api
+  namespace: snack-bar-payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: snack-bar-payments-api
+  template:
+    metadata:
+      labels:
+        app: snack-bar-payments-api
+    spec:
+      containers:
+        - name: snack-bar-payments-api
+          image: snackbarapi/snack-bar-payments:latest
+          ports:
+            - containerPort: 3002
+          env:
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: snack-bar-payments-secrets
+                  key: MONGODB_PASSWORD
+            - name: DATABASE_URL
+              value: "mongodb://root:$(MONGODB_PASSWORD)@snack-bar-payments-db:27017/snack-bar-api-payments?authSource=admin"
+            - name: MERCADO_PAGO_API_URL
+              value: "https://api.mercadopago.com/v1"
+            - name: MERCADO_PAGO_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: snack-bar-payments-secrets
+                  key: MERCADO_PAGO_ACCESS_TOKEN
+            - name: PORT
+              value: "3002"
+            - name: ORDER_SERVICE_API_URL
+              value: "http://localhost:3003/api/v1"
+          resources:
+            requests:
+              cpu: 100m
