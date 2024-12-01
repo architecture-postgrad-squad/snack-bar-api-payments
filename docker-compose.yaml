@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: snack-api-payments-db
+    image: mongo:6.0
+    restart: always
+    ports:
+      - "${MONGODB_PORT}:${MONGODB_PORT}"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+    volumes:
+      - mongodb_data:/data/db
+
+  web:
+    container_name: snack-api-payments-web
+    build: .
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - env/local.env 
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    command: npm run start:dev
+
+volumes:
+  mongodb_data:
