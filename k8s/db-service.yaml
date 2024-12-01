@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: snack-bar-payments-db
+  namespace: snack-bar-payments
+spec:
+  selector:
+    app: snack-bar-payments-db
+  ports:
+    - port: 27017
+      targetPort: 27017

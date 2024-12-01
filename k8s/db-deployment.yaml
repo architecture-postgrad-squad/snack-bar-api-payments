@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: snack-bar-payments-db
+  namespace: snack-bar-payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: snack-bar-payments-db
+  template:
+    metadata:
+      labels:
+        app: snack-bar-payments-db
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:6.0
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: snack-bar-payments-secrets
+                  key: MONGODB_PASSWORD
+          volumeMounts:
+            - name: mongo-data
+              mountPath: /data/db
+      volumes:
+        - name: mongo-data
+          persistentVolumeClaim:
+            claimName: snack-bar-payments-db-pvc
